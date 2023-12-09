@@ -19,3 +19,16 @@ buildscript {
         classpath("com.facebook.react:react-native-gradle-plugin")
     }
 }
+
+ 
+
+subprojects { subproject ->
+        if(project['name'] == 'react-native-video360plugin'){
+            project.configurations { compile { } }
+        }
+}
+allprojects {
+    repositories {
+        jcenter()
+    }
+  }
