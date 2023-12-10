@@ -87,7 +87,7 @@ public class VideoPlayer360Actity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_player_360);
-Log.d("VideoPlayer360Actity","VideoPlayer360Actity");
+        Log.d("VideoPlayer360Actity", "VideoPlayer360Actity");
         viewControls = (RelativeLayout) findViewById(R.id.viewControls);
         viewControls.setVisibility(View.GONE);
 

@@ -22,7 +22,8 @@ public class Video360Package implements ReactPackage {
         // Register your native component's view manager
         // https://facebook.github.io/react-native/docs/native-components-android.html#4-register-the-viewmanager
         return Arrays.<ViewManager>asList(
-                new Video360Module(reactContext)
+                new Video360Module(reactContext),
+                new VideoVRModule(reactContext)
         );
     }
 }

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000">
+
+    <com.google.vr.sdk.widgets.video.VrVideoView
+        android:id="@+id/video_view"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+
+        />
+
+    <RelativeLayout
+
+        android:id="@+id/viewControls"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:background="#000000">
+        <!-- Seeking UI & progress indicator.-->
+        <TextView
+            android:id="@+id/txt_current"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_weight="2"
+            android:paddingStart="0dp"
+            android:paddingTop="4dp"
+            android:text="00"
+            android:textSize="14sp"
+            android:textColor="#ffffff"
+            />
+
+        <SeekBar
+            android:id="@+id/seek_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="35dp"
+            android:layout_toLeftOf="@+id/play_toggle"
+            android:thumbTint="#FF0000"
+            android:thumb="@xml/custom_thumb"
+            android:progressTint="#FF0000"
+            android:progressBackgroundTint="#ffffff"
+             />
+        <TextView
+            android:id="@+id/txt_duration"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:paddingTop="4dp"
+            android:text="00"
+            android:textSize="14sp"
+            android:textColor="#ffffff"
+            />
+        <ImageButton
+            android:id="@+id/play_toggle"
+            android:paddingTop="2dp"
+            android:paddingRight="2dp"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:scaleType="centerInside"
+            android:layout_alignParentRight="true"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:tint="#ffffff"
+            android:src="@drawable/pause"
+            tools:ignore="UseAppTint" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

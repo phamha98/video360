@@ -3,7 +3,7 @@
  */
 
 import { AppRegistry, Platform } from 'react-native';
-import ANDROID from './App.ANDROID';
+import ANDROID from './App.ANDROIDVR';
 import IOS from './App.IOS';
 import { name as appName } from './app.json';
 

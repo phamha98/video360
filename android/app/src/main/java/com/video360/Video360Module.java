@@ -156,70 +156,6 @@ public class Video360Module extends SimpleViewManager {
             if (view != null) view.seekTo(0);
         }
     }
-    @ReactMethod
-    public void test( ) {
-        Log.d("rtest", "test test ");
-    }
-    @ReactMethod
-    public void loadVideo(final Promise promise) {
-        try {
-            Log.d(TAG, "myMethod called from JavaScript loadVideo");
-            view.loadVideo(uriCache,null);
-            promise.resolve(true);
-        } catch (Exception e) {
-            promise.reject("playVideo error", e.getMessage());
-        }
-    }
-
-    @ReactMethod
-    public void playVideo(final Promise promise) {
-        try {
-            view.playVideo();
-            promise.resolve(true);
-        } catch (Exception e) {
-            promise.reject("playVideo error", e.getMessage());
-        }
-    }
-
-    @ReactMethod
-    public void pauseVideo(final Promise promise) {
-        try {
-            view.pauseVideo();
-            promise.resolve(true);
-        } catch (Exception e) {
-            promise.reject("pauseVideo error", e.getMessage());
-        }
-    }
-
-    @ReactMethod
-    public void seekTo(long seek, final Promise promise) {
-        try {
-            view.seekTo(seek);
-            promise.resolve(true);
-        } catch (Exception e) {
-            promise.reject("seekTo error", e.getMessage());
-        }
-    }
-
-    @ReactMethod
-    public void getDuration(final Promise promise) {
-        try {
-            Long duration = view.getDuration();
-            promise.resolve(duration);
-        } catch (Exception e) {
-            promise.reject("getDuration error", e.getMessage());
-        }
-    }
-
-    @ReactMethod
-    public void getCurrentPosition(final Promise promise) {
-        try {
-            Long duration = view.getCurrentPosition();
-            promise.resolve(duration);
-        } catch (Exception e) {
-            promise.reject("getCurrentPosition error", e.getMessage());
-        }
-    }
 
     class VideoLoaderTask extends AsyncTask<Pair<Uri, VrVideoView.Options>, Void, Boolean> {
         @SafeVarargs
@@ -234,12 +170,3 @@ public class Video360Module extends SimpleViewManager {
         }
     }
 }
-//    @ReactMethod
-//    public void playVideo(final Promise promise) {
-//        try {
-//            view.playVideo();
-//            promise.resolve(true);
-//        } catch (Exception e) {
-//            promise.reject("PLAYBACK_ERROR", e.getMessage());
-//        }
-//    }
