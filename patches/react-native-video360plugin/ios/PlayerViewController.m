@@ -10,8 +10,11 @@
 @property (weak, nonatomic) IBOutlet UISlider *progressSilder;
 @property (weak, nonatomic) IBOutlet UILabel *currentTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalTimeLabel;
-
+ 
 @property (nonatomic, assign) BOOL progressSilderTouching;
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton *log;
+@property (nonatomic, assign) BOOL isPlay ;
+ 
 
 @end
 
@@ -21,7 +24,7 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
-    
+    self.isPlay=true;
     self.player = [SGPlayer player];
     [self.player registerPlayerNotificationTarget:self
                                       stateAction:@selector(stateAction:)
@@ -32,7 +35,7 @@
         NSLog(@"player display view did click!");
     }];
     [self.view insertSubview:self.player.view atIndex:0];
-//    NSLog(@"-----urlVideo: %@", self.urlVideo);
+    //    NSLog(@"-----urlVideo: %@", self.urlVideo);
     
     [self playVideFromUrl:[NSURL URLWithString:self.urlVideo]];
     return;
@@ -45,14 +48,14 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-//    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-//        AppDelegate* dgt = (AppDelegate*)[UIApplication sharedApplication].delegate;
-//        dgt.shouldSupportPortrait = FALSE;
-//
-//        NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
-//        [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
-//        [UINavigationController attemptRotationToDeviceOrientation];
-//    }
+    //    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+    //        AppDelegate* dgt = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    //        dgt.shouldSupportPortrait = FALSE;
+    //
+    //        NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
+    //        [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+    //        [UINavigationController attemptRotationToDeviceOrientation];
+    //    }
     
     [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
@@ -63,24 +66,24 @@
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     
-//    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-//        AppDelegate* dgt = (AppDelegate*)[UIApplication sharedApplication].delegate;
-//        dgt.shouldSupportPortrait = TRUE;
-//        
-//        
-//        NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
-//        [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
-//        [UINavigationController attemptRotationToDeviceOrientation];
-//    }
+    //    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+    //        AppDelegate* dgt = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    //        dgt.shouldSupportPortrait = TRUE;
+    //
+    //
+    //        NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
+    //        [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+    //        [UINavigationController attemptRotationToDeviceOrientation];
+    //    }
     
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 /*- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
-    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
-        return UIInterfaceOrientationLandscapeLeft;
-    }
-    return UIInterfaceOrientationLandscapeLeft;
-}*/
+ if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+ return UIInterfaceOrientationLandscapeLeft;
+ }
+ return UIInterfaceOrientationLandscapeLeft;
+ }*/
 - (BOOL)shouldAutorotate {
     return YES;
 }
@@ -142,11 +145,24 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)onPress:(id)sender {
+    if(self.isPlay){
+        [self.log setTitle:@"▶️" forState:UIControlStateNormal];
+        [self.player pause];
+        self.isPlay=false;
+    }
+    else{
+        [self.log setTitle:@"⏸️" forState:UIControlStateNormal];
+        [self.player play];
+        self.isPlay=true;
+    }
+}
+
 - (IBAction)play:(id)sender
 {
     [self.player play];
 }
-
+ 
 - (IBAction)pause:(id)sender
 {
     [self.player pause];
@@ -194,6 +210,8 @@
             break;
     }
     self.stateLabel.text = text;
+    self.stateLabel.text = @"";
+   
 }
 
 - (void)progressAction:(NSNotification *)notification

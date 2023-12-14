@@ -1,21 +1,17 @@
 import React, { useEffect, useRef } from 'react';
-import { Button, Dimensions, UIManager, View, findNodeHandle } from 'react-native';
+import { Button, Dimensions, UIManager, View, useWindowDimensions } from 'react-native';
 import { VideoVR } from './VideoVR';
-const { width, height } = Dimensions.get('screen')
+import { StatusBar } from 'react-native';
+
 
 export default function App() {
-  const refVideo = useRef<any>()
-  const loadNative = async () => {
-
-
-  }
-
+  const { height, width } = useWindowDimensions();
+  console.log({ width, height })
   return (
-    <View style={{ flex: 1, backgroundColor: 'red', justifyContent: 'center', alignItems: 'center' }}>
-      <Button title='loadNative' onPress={loadNative} />
-      <View style={{ width, height: 300, }}>
+    <View style={{ flex: 1, backgroundColor: '#000', }}>
+      <StatusBar hidden />
+      <View style={{ width, height: height - 10 }}>
         <VideoVR
-          ref={refVideo}
           urlVideo='https://cdn.bitmovin.com/content/assets/playhouse-vr/progressive.mp4'
           modeVideo={3}
           style={{ flex: 1 }}
