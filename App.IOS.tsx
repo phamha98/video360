@@ -1,9 +1,8 @@
 import { StyleSheet, Text, View, Dimensions, StatusBar } from 'react-native'
 import React, { useEffect } from 'react'
 import { Video360 } from './Video360';
-import { useWindowDimensions } from 'react-native';
+const { width, height } = Dimensions.get('screen')
 export default function App() {
-  const { height, width } = useWindowDimensions();
   return (
     <View style={styles.f}>
       <StatusBar hidden />
