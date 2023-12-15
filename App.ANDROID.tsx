@@ -22,12 +22,10 @@ export default function App() {
   }, [])
   return (
     <View style={{ flex: 1, backgroundColor: 'red', justifyContent: 'center', alignItems: 'center' }}>
-      <Button title='loadNative' onPress={loadNative} />
-      {/* <View480  source={}/> */}
       <View style={{ width, height: 300, }}>
         <Video360
           ref={refVideo}
-          urlVideo='https://cdn.bitmovin.com/content/assets/playhouse-vr/progressive.mp4'
+          urlVideo='https://adowindow.com/wp-content/uploads/video360.mp4'
           modeVideo={3}
           style={{ flex: 1 }}
           volume={1}
