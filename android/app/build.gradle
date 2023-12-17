@@ -101,6 +101,12 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def formattedDate = new Date().format('HHmmss_ddMMyyyy')
+            outputFileName = "VIDEO360-${formattedDate}.apk"
+        }
+    }
 }
 
 dependencies {

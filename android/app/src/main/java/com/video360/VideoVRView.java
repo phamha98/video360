@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.react.uimanager.annotations.ReactProp;
+import com.google.vr.sdk.widgets.common.VrWidgetView;
 import com.google.vr.sdk.widgets.video.VrVideoEventListener;
 import com.google.vr.sdk.widgets.video.VrVideoView;
 
@@ -141,6 +142,23 @@ public class VideoVRView extends FrameLayout implements OnClickListener, OnTouch
 
     public void setInfoButtonEnabled(Boolean enabled) {
         videoWidgetView.setInfoButtonEnabled(enabled);
+    }
+    public void setDisplayMode(String mode) {
+        switch (mode) {
+            case "embedded":
+                videoWidgetView.setDisplayMode(VrWidgetView.DisplayMode.EMBEDDED);
+                break;
+            case "fullscreen":
+                videoWidgetView.setDisplayMode(VrWidgetView.DisplayMode.FULLSCREEN_MONO);
+                break;
+            case "cardboard":
+                videoWidgetView.setDisplayMode(VrWidgetView.DisplayMode.FULLSCREEN_STEREO);
+                break;
+            default:
+                videoWidgetView.setDisplayMode(VrWidgetView.DisplayMode.EMBEDDED);
+                break;
+        }
+
     }
 
     @Override

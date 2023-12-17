@@ -85,4 +85,8 @@ public class VideoVRModule extends SimpleViewManager <VideoVRView>{
     public void setInfoButtonEnabled(VideoVRView view, Boolean enabled) {
         videoVRView.setInfoButtonEnabled(enabled);
     }
+    @ReactProp(name = "displayMode")
+    public void setDisplayMode(VideoVRView view,String mode) {
+        videoVRView.setDisplayMode(mode);
+    }
 }
