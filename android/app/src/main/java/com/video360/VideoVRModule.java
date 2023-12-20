@@ -48,8 +48,7 @@ public class VideoVRModule extends SimpleViewManager <VideoVRView>{
         return videoVRView;
     }
 
-
-
+   
 
     @ReactProp(name = "urlVideo")
     public void setVideo(VideoVRView view,  String url ) {

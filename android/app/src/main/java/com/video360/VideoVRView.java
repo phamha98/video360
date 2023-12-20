@@ -106,7 +106,9 @@ public class VideoVRView extends FrameLayout implements OnClickListener, OnTouch
 
         }
     };
-
+public void remove(){
+    videoWidgetView.pauseVideo();
+}
     public void setVideo(String url) {
         // String type = config.getString("type");
         //   Uri uri = Uri.parse(config.getString("uri"));
