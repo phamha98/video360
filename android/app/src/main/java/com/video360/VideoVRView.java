@@ -54,10 +54,6 @@ public class VideoVRView extends FrameLayout implements OnClickListener, OnTouch
         playToggle = findViewById(R.id.play_toggle);
         seekBar = (SeekBar) findViewById(R.id.seek_bar);
 
-
-        //seekBar.setOnSeekBarChangeListener(new  SeekBarListener());
-        // videoWidgetView.setEventListener(new VideoPlayer360Actity.ActivityEventListener());
-        //textView.setText("dcm");
         playToggle.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,30 +80,15 @@ public class VideoVRView extends FrameLayout implements OnClickListener, OnTouch
         }
         isPaused = !isPaused;
         playToggle.setImageResource(isPaused ? R.drawable.play : R.drawable.pause);
-//        try {
-//
-//            if (isError && isPaused) {
-//                Log.e(TAG, "reloadVideo");
-//                Uri uri = Uri.parse("https://cdn.bitmovin.com/content/assets/playhouse-vr/progressive.mp4");
-//                VrVideoView.Options videoOptions = new VrVideoView.Options();
-//                videoOptions.inputFormat = VrVideoView.Options.FORMAT_DEFAULT;
-//                videoWidgetView.loadVideo(uri, videoOptions);
-//                videoWidgetView.seekTo(lastDuration);
-//                videoWidgetView.playVideo();
-//            }
-//        } catch (IOException e) {
-//            Log.e(TAG, "VideoLoaderTask VideoLoaderTask VideoLoaderTask");
-//        }
+
     }
 
-    private final Runnable reloadRunnable = new Runnable() {
-        @Override
-        public void run() {
 
-        }
-    };
 public void remove(){
+
     videoWidgetView.pauseVideo();
+    videoWidgetView.setEventListener(null);
+    seekBar.setProgress(0);
 }
     public void setVideo(String url) {
         // String type = config.getString("type");
@@ -230,7 +211,7 @@ public void remove(){
             Log.e(TAG, "Error al cargar el video: " + errorMessage);
             isError = true;
 
-            reloadVideo();
+            //reloadVideo();
         }
 
         @Override

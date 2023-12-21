@@ -9,12 +9,14 @@ import android.view.ViewGroup;
 
 import com.brentvatne.react.ReactVideoView;
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.google.vr.sdk.widgets.video.VrVideoView;
 
+import java.io.IOException;
 import java.util.Map;
 
 import javax.annotation.Nullable;
@@ -37,6 +39,7 @@ public class VideoVRModule extends SimpleViewManager <VideoVRView>{
 
     @Override
     protected VideoVRView createViewInstance(ThemedReactContext context) {
+        Log.e("createViewInstance","createViewInstance");
         view2 = new View(context.getCurrentActivity());
         videoVRView = new VideoVRView(context.getCurrentActivity());
 //        int width = 200; // Specify your desired width
@@ -48,7 +51,20 @@ public class VideoVRModule extends SimpleViewManager <VideoVRView>{
         return videoVRView;
     }
 
-   
+    @Override
+    public void onDropViewInstance(VideoVRView view ) {
+        super.onDropViewInstance(view);
+        try {
+            videoVRView.remove();
+            Log.e("TAG", "VideoLoaderTask VideoLoaderTask VideoLoaderTask");
+        } finally {
+
+        }
+
+
+
+        Log.e("VideoVRModule","onDropViewInstance");
+    }
 
     @ReactProp(name = "urlVideo")
     public void setVideo(VideoVRView view,  String url ) {
@@ -88,4 +104,19 @@ public class VideoVRModule extends SimpleViewManager <VideoVRView>{
     public void setDisplayMode(VideoVRView view,String mode) {
         videoVRView.setDisplayMode(mode);
     }
+//    @ReactMethod
+//    public void testMethod(int tag, String value) {
+//        getReactApplicationContext().runOnUiQueueThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                ThemedReactContext themedReactContext = UIManagerHelper.getUIManagerForReactTag(getReactApplicationContext(), tag);
+//                if (themedReactContext != null) {
+//                    View view = themedReactContext.resolveView(tag);
+//                    // Your logic with the view here
+//                }
+//            }
+//        });
+//        Log.d("TAG", "testMethod: tag -> " + tag + ", value -> " + value);
+//    }
+
 }

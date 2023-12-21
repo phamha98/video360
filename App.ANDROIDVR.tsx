@@ -28,7 +28,7 @@ export default function App() {
         <StatusBar hidden />
         <View style={{ flex: 1, backgroundColor: '#8000FF', }}>
           <VideoVR
-            urlVideo='https://cdn.bitmovin.com/content/assets/playhouse-vr/progressive.mp4'
+            urlVideo='https://bitmovin-a.akamaihd.net/content/playhouse-vr/progressive.mp4'
             // urlVideo='https://adowindow.com/wp-content/uploads/video360.mp4'
             modeVideo={2}
             style={{ flex: 1 }}
