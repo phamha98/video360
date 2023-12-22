@@ -1,35 +1,30 @@
 package com.video360;
 
 import android.content.Context;
-
-import androidx.annotation.NonNull;
-
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
 import android.util.Pair;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.react.uimanager.annotations.ReactProp;
+import androidx.annotation.NonNull;
+
 import com.google.vr.sdk.widgets.common.VrWidgetView;
 import com.google.vr.sdk.widgets.video.VrVideoEventListener;
 import com.google.vr.sdk.widgets.video.VrVideoView;
 
 import java.io.IOException;
 
-public class VideoVRView extends FrameLayout implements OnClickListener, OnTouchListener {
+public class VideoVRView extends FrameLayout  implements OnClickListener, OnTouchListener {
     private static final String TAG = "VideoVRView";
     private Long lastDuration;
     protected VrVideoView videoWidgetView;
@@ -53,7 +48,7 @@ public class VideoVRView extends FrameLayout implements OnClickListener, OnTouch
         videoWidgetView.setEventListener(new ActivityEventListener());
         playToggle = findViewById(R.id.play_toggle);
         seekBar = (SeekBar) findViewById(R.id.seek_bar);
-
+//        modifyUI();
         playToggle.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,11 +56,23 @@ public class VideoVRView extends FrameLayout implements OnClickListener, OnTouch
 
             }
         });
+        videoWidgetView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // Handle touch events here
+                // Return 'true' if the touch event is consumed, 'false' otherwise
+                Log.e("VIEW","videoWidgetView.setOnTouchListener");
+                return false;
+            }
+        });
+//        videoWidgetView.setBackButtonListener
+//        findViewById(R.id.ui_back_button).setVisibility(GONE);
+//        findViewById(R.id.ui_settings_button).setVisibility(GONE);
         // viewControls.setVisibility(View.GONE);
+
     }
 
     private void togglePause() {
-
 
         Log.e(TAG, "togglePause123");
         Log.e(TAG, "lastDuration=" + lastDuration);
@@ -84,12 +91,13 @@ public class VideoVRView extends FrameLayout implements OnClickListener, OnTouch
     }
 
 
-public void remove(){
+    public void remove() {
 
-    videoWidgetView.pauseVideo();
-    videoWidgetView.setEventListener(null);
-    seekBar.setProgress(0);
-}
+        videoWidgetView.pauseVideo();
+        videoWidgetView.setEventListener(null);
+        seekBar.setProgress(0);
+    }
+
     public void setVideo(String url) {
         // String type = config.getString("type");
         //   Uri uri = Uri.parse(config.getString("uri"));
@@ -126,6 +134,7 @@ public void remove(){
     public void setInfoButtonEnabled(Boolean enabled) {
         videoWidgetView.setInfoButtonEnabled(enabled);
     }
+
     public void setDisplayMode(String mode) {
         switch (mode) {
             case "embedded":
@@ -141,11 +150,12 @@ public void remove(){
                 videoWidgetView.setDisplayMode(VrWidgetView.DisplayMode.EMBEDDED);
                 break;
         }
-
+        videoWidgetView.setTransitionViewEnabled(false);
     }
 
     @Override
     public void onClick(View view) {
+///
 
     }
 
@@ -276,3 +286,37 @@ public void remove(){
         }
     }
 }
+
+//    public void runAccessPrivateMethod() {
+//        try {
+//            accessPrivateMethod();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//    public void accessPrivateMethod() throws Exception {
+//        Method method = VrVideoView.class.getDeclaredMethod("updateButtonVisibility");
+//        method.setAccessible(true);
+//        method.invoke(videoWidgetView);
+//        //method.invoke(videoWidgetView, param1, param2);
+//    }
+//public void modifyUI() {
+//    try {
+//        // Obtain the vrUiLayer field
+//        Field vrUiLayerField = videoWidgetView.getClass().getSuperclass().getDeclaredField("vrUiLayer");
+//        vrUiLayerField.setAccessible(true);
+//
+//        // Get the UiLayer instance from the field
+//        UiLayer vrLayer = (UiLayer) vrUiLayerField.get(videoWidgetView);
+//
+//        // Modify UI as needed
+//        vrLayer.setSettingsButtonEnabled(false);
+//        vrLayer.setBackButtonListener(null);
+//
+//        // Alternatively, you can disable the entire UI layer
+//        // vrLayer.setEnabled(false);
+//
+//    } catch (NoSuchFieldException | IllegalAccessException e) {
+//        e.printStackTrace();
+//    }
+//}

@@ -33,7 +33,7 @@ export default function App() {
             modeVideo={2}
             style={{ flex: 1 }}
             volume={1}
-            displayMode='embedded'
+            displayMode='cardboard'
             enableInfoButton={true}
             enableFullscreenButton={true}
             enableCardboardButton={true}
