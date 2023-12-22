@@ -3,13 +3,10 @@ package com.video360;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.util.Log;
 import android.util.Pair;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
@@ -24,7 +21,7 @@ import com.google.vr.sdk.widgets.video.VrVideoView;
 
 import java.io.IOException;
 
-public class VideoVRView extends FrameLayout  implements OnClickListener, OnTouchListener {
+public class VideoVRView extends FrameLayout {
     private static final String TAG = "VideoVRView";
     private Long lastDuration;
     protected VrVideoView videoWidgetView;
@@ -34,21 +31,18 @@ public class VideoVRView extends FrameLayout  implements OnClickListener, OnTouc
     private Boolean isPaused = false;
     private Boolean isError = false;
     private SeekBar seekBar;
-    private Integer second = 0;
-    private final Handler handler = new Handler();
+    private Uri uriVideo;
 
     public VideoVRView(@NonNull Context context) {
         super(context);
         View layoutInflater = inflate(context, R.layout.activity_videovr, this);
-        // viewControls =   layoutInflater.findViewById(R.id.viewControls);
         textView = layoutInflater.findViewById(R.id.txt_current);
         textDuration = layoutInflater.findViewById(R.id.txt_duration);
         //
         videoWidgetView = findViewById(R.id.video_view);
-        videoWidgetView.setEventListener(new ActivityEventListener());
+        //videoWidgetView.setEventListener(new ActivityEventListener());
         playToggle = findViewById(R.id.play_toggle);
         seekBar = (SeekBar) findViewById(R.id.seek_bar);
-//        modifyUI();
         playToggle.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,55 +53,75 @@ public class VideoVRView extends FrameLayout  implements OnClickListener, OnTouc
         videoWidgetView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                // Handle touch events here
-                // Return 'true' if the touch event is consumed, 'false' otherwise
-                Log.e("VIEW","videoWidgetView.setOnTouchListener");
+                Log.e("VIEW", "videoWidgetView.setOnTouchListener");
                 return false;
             }
         });
-//        videoWidgetView.setBackButtonListener
-//        findViewById(R.id.ui_back_button).setVisibility(GONE);
-//        findViewById(R.id.ui_settings_button).setVisibility(GONE);
-        // viewControls.setVisibility(View.GONE);
-
     }
 
     private void togglePause() {
+        try {
 
-        Log.e(TAG, "togglePause123");
-        Log.e(TAG, "lastDuration=" + lastDuration);
-        Log.e(TAG, "isError=" + isError);
-        if (isPaused) {
-            Log.e(TAG, "playVideo");
-            videoWidgetView.playVideo();
 
-        } else {
-            Log.e(TAG, "pauseVideo");
-            videoWidgetView.pauseVideo();
+            Log.e(TAG, "togglePause123");
+            Log.e(TAG, "lastDuration=" + lastDuration);
+            Log.e(TAG, "isError=" + isError);
+            if (isPaused) {
+                Log.e(TAG, "playVideo");
+                videoWidgetView.playVideo();
+                if (isError) {
+
+                } else {
+
+                }
+
+            } else {
+                Log.e(TAG, "pauseVideo");
+                videoWidgetView.pauseVideo();
+            }
+            isPaused = !isPaused;
+            playToggle.setImageResource(isPaused ? R.drawable.play : R.drawable.pause);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle the exception
+            Log.e(TAG, "19008198",e);
         }
-        isPaused = !isPaused;
-        playToggle.setImageResource(isPaused ? R.drawable.play : R.drawable.pause);
-
     }
 
 
     public void remove() {
-
         videoWidgetView.pauseVideo();
         videoWidgetView.setEventListener(null);
         seekBar.setProgress(0);
     }
 
-    public void setVideo(String url) {
-        // String type = config.getString("type");
-        //   Uri uri = Uri.parse(config.getString("uri"));
-        Uri uri = Uri.parse(url);
+    private void reloadVideo() {
+        try {
+            videoWidgetView.setEventListener(null);
+            videoWidgetView.setEventListener(new ActivityEventListener());
+            Log.d(TAG, "reloadVideo");
 
+            VrVideoView.Options videoOptions = new VrVideoView.Options();
+            videoOptions.inputFormat = VrVideoView.Options.FORMAT_DEFAULT;
+
+            videoWidgetView.loadVideo(uriVideo, videoOptions);
+            videoWidgetView.seekTo(lastDuration);
+            videoWidgetView.pauseVideo();
+
+        } catch (IOException e) {
+            Log.e(TAG, "VideoLoaderTask VideoLoaderTask VideoLoaderTask");
+        }
+
+    }
+
+    public void setVideo(String url) {
+
+        uriVideo = Uri.parse(url);
         VrVideoView.Options videoOptions = new VrVideoView.Options();
         videoOptions.inputFormat = VrVideoView.Options.FORMAT_DEFAULT;
 
         VideoLoaderTask videoLoaderTask = new VideoLoaderTask();
-        videoLoaderTask.execute(Pair.create(uri, videoOptions));
+        videoLoaderTask.execute(Pair.create(uriVideo, videoOptions));
 
     }
 
@@ -153,48 +167,15 @@ public class VideoVRView extends FrameLayout  implements OnClickListener, OnTouc
         videoWidgetView.setTransitionViewEnabled(false);
     }
 
-    @Override
-    public void onClick(View view) {
-///
-
-    }
-
-    @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        return false;
-    }
-
-    private void reloadVideo() {
-        try {
-            videoWidgetView.setEventListener(null);
-            videoWidgetView.setEventListener(new ActivityEventListener());
-            Log.d(TAG, "reloadVideo");
-            Uri uri = Uri.parse("https://cdn.bitmovin.com/content/assets/playhouse-vr/progressive.mp4");
-            VrVideoView.Options videoOptions = new VrVideoView.Options();
-            videoOptions.inputFormat = VrVideoView.Options.FORMAT_DEFAULT;
-
-            videoWidgetView.loadVideo(uri, videoOptions);
-            videoWidgetView.seekTo(lastDuration);
-            videoWidgetView.pauseVideo();
-
-        } catch (IOException e) {
-            Log.e(TAG, "VideoLoaderTask VideoLoaderTask VideoLoaderTask");
-        }
-
-    }
-
     class VideoLoaderTask extends AsyncTask<Pair<Uri, VrVideoView.Options>, Void, Boolean> {
         @SafeVarargs
         @SuppressWarnings("WrongThread")
         protected final Boolean doInBackground(Pair<Uri, VrVideoView.Options>... args) {
             try {
-//                Log.d(TAG, "first" + args[0].first);
-//                Log.d(TAG, "second" + args[0].second);
                 videoWidgetView.loadVideo(args[0].first, args[0].second);
             } catch (IOException e) {
                 Log.e(TAG, "VideoLoaderTask VideoLoaderTask VideoLoaderTask");
             }
-
             return true;
         }
     }
@@ -215,36 +196,25 @@ public class VideoVRView extends FrameLayout  implements OnClickListener, OnTouc
          */
         @Override
         public void onLoadError(String errorMessage) {
-            // An error here is normally due to being unable to decode the video format.
-
             Toast.makeText(getContext(), "Error al cargar el video: " + errorMessage, Toast.LENGTH_LONG).show();
             Log.e(TAG, "Error al cargar el video: " + errorMessage);
             isError = true;
-
-            //reloadVideo();
+            reloadVideo();
         }
 
         @Override
         public void onClick() {
-
         }
 
-        /**
-         * Update the UI every frame.
-         */
         @Override
         public void onNewFrame() {
             String i = String.valueOf((videoWidgetView.getCurrentPosition()));
             textView.setText(getTimeString(videoWidgetView.getCurrentPosition()));
-            //Log.e(TAG, "playVideo i=" + i);
             seekBar.setProgress((int) videoWidgetView.getCurrentPosition());
             lastDuration = videoWidgetView.getCurrentPosition();
         }
 
-        /**
-         * Make the video play in a loop. This method could also be used to move to the next video in
-         * a playlist.
-         */
+
         @Override
         public void onCompletion() {
             videoWidgetView.seekTo(0);
@@ -268,55 +238,5 @@ public class VideoVRView extends FrameLayout  implements OnClickListener, OnTouc
         return buf.toString();
     }
 
-    private class SeekBarListener implements SeekBar.OnSeekBarChangeListener {
-        @Override
-        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            if (fromUser) {
-                //videoWidgetView.seekTo(progress);
 
-            } // else this was from the ActivityEventHandler.onNewFrame()'s seekBar.setProgress update.
-        }
-
-        @Override
-        public void onStartTrackingTouch(SeekBar seekBar) {
-        }
-
-        @Override
-        public void onStopTrackingTouch(SeekBar seekBar) {
-        }
-    }
 }
-
-//    public void runAccessPrivateMethod() {
-//        try {
-//            accessPrivateMethod();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-//    public void accessPrivateMethod() throws Exception {
-//        Method method = VrVideoView.class.getDeclaredMethod("updateButtonVisibility");
-//        method.setAccessible(true);
-//        method.invoke(videoWidgetView);
-//        //method.invoke(videoWidgetView, param1, param2);
-//    }
-//public void modifyUI() {
-//    try {
-//        // Obtain the vrUiLayer field
-//        Field vrUiLayerField = videoWidgetView.getClass().getSuperclass().getDeclaredField("vrUiLayer");
-//        vrUiLayerField.setAccessible(true);
-//
-//        // Get the UiLayer instance from the field
-//        UiLayer vrLayer = (UiLayer) vrUiLayerField.get(videoWidgetView);
-//
-//        // Modify UI as needed
-//        vrLayer.setSettingsButtonEnabled(false);
-//        vrLayer.setBackButtonListener(null);
-//
-//        // Alternatively, you can disable the entire UI layer
-//        // vrLayer.setEnabled(false);
-//
-//    } catch (NoSuchFieldException | IllegalAccessException e) {
-//        e.printStackTrace();
-//    }
-//}
