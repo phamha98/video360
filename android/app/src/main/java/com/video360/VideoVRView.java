@@ -28,6 +28,8 @@ public class VideoVRView extends FrameLayout {
     private TextView textView;
     private TextView textDuration;
     private ImageButton playToggle;
+    private ImageButton icBack;
+
     private Boolean isPaused = false;
     private Boolean isError = false;
     private SeekBar seekBar;
@@ -40,8 +42,9 @@ public class VideoVRView extends FrameLayout {
         textDuration = layoutInflater.findViewById(R.id.txt_duration);
         //
         videoWidgetView = findViewById(R.id.video_view);
-        //videoWidgetView.setEventListener(new ActivityEventListener());
+        videoWidgetView.setEventListener(new ActivityEventListener());
         playToggle = findViewById(R.id.play_toggle);
+        icBack= findViewById(R.id.play_toggle);
         seekBar = (SeekBar) findViewById(R.id.seek_bar);
         playToggle.setOnClickListener(new OnClickListener() {
             @Override

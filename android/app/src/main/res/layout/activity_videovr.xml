@@ -10,16 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="30dp"
-        />
+        android:layout_marginBottom="30dp" />
 
     <RelativeLayout
-
         android:id="@+id/viewControls"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_alignParentBottom="true"
-        android:background="#000000">
+        android:background="#000000"
+         >
         <!-- Seeking UI & progress indicator.-->
         <TextView
             android:id="@+id/txt_current"
@@ -29,10 +28,9 @@
             android:layout_weight="2"
             android:paddingStart="0dp"
             android:paddingTop="4dp"
-            android:text="00"
-            android:textSize="14sp"
+            android:text="00:00"
             android:textColor="#ffffff"
-            />
+            android:textSize="14sp" />
 
         <SeekBar
             android:id="@+id/seek_bar"
@@ -42,11 +40,11 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="35dp"
             android:layout_toLeftOf="@+id/play_toggle"
-            android:thumbTint="#FF0000"
-            android:thumb="@xml/custom_thumb"
-            android:progressTint="#FF0000"
             android:progressBackgroundTint="#ffffff"
-             />
+            android:progressTint="#FF0000"
+            android:thumb="@xml/custom_thumb"
+            android:thumbTint="#FF0000" />
+
         <TextView
             android:id="@+id/txt_duration"
             android:layout_width="40dp"
@@ -54,22 +52,22 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="30dp"
             android:paddingTop="4dp"
-            android:text="00"
-            android:textSize="14sp"
+            android:text="00:00"
             android:textColor="#ffffff"
-            />
+            android:textSize="14sp" />
+
         <ImageButton
             android:id="@+id/play_toggle"
-            android:paddingTop="2dp"
-            android:paddingRight="2dp"
             android:layout_width="26dp"
             android:layout_height="26dp"
-            android:scaleType="centerInside"
             android:layout_alignParentRight="true"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:tint="#ffffff"
+            android:paddingTop="2dp"
+            android:paddingRight="2dp"
+            android:scaleType="centerInside"
             android:src="@drawable/pause"
+            android:tint="#ffffff"
             tools:ignore="UseAppTint" />
 
 
