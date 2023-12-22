@@ -6,13 +6,11 @@ import ButtonBack from './ButtonBack';
 
 
 export default function App() {
-  const { height, width } = Dimensions.get('screen')
   useEffect(() => {
     const backAction = () => {
       setVisible(false)
       return true;
     };
-
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
       backAction,
