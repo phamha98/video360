@@ -29,7 +29,7 @@ export default function App() {
           <Video360
             urlVideo='https://bitmovin-a.akamaihd.net/content/playhouse-vr/progressive.mp4'
             // urlVideo='https://adowindow.com/wp-content/uploads/video360.mp4'
-            modeVideo={1}
+            modeVideo={2}
             style={{ flex: 1 }}
             volume={1}
             controls={false}

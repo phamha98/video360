@@ -14,7 +14,6 @@
                 <outlet property="currentTimeLabel" destination="z4U-C2-ln8" id="XAa-fP-ewL" />
                 <outlet property="log" destination="euc-Ho-K1E" id="8Xu-9g-0sh" />
                 <outlet property="progressSilder" destination="KvZ-4g-DxG" id="OnA-jj-vrn" />
-                <outlet property="stateLabel" destination="YYV-yF-5Pw" id="yVZ-lS-wi8" />
                 <outlet property="totalTimeLabel" destination="N9a-ry-WfX" id="oQt-ud-J66" />
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt" />
             </connections>
@@ -24,10 +23,35 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667" />
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" />
             <subviews>
-                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center"
-                    contentVerticalAlignment="center" minValue="0.0" maxValue="1"
-                    translatesAutoresizingMaskIntoConstraints="NO" id="KvZ-4g-DxG">
-                    <rect key="frame" x="144" y="617" width="144.5" height="31" />
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left"
+                    horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES"
+                    text="00:00" textAlignment="right" lineBreakMode="tailTruncation"
+                    baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO"
+                    translatesAutoresizingMaskIntoConstraints="NO" id="N9a-ry-WfX">
+                    <rect key="frame" x="303" y="643" width="47" height="21" />
+                    <fontDescription key="fontDescription" type="system" pointSize="16" />
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite" />
+                    <nil key="highlightedColor" />
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES"
+                    contentHorizontalAlignment="leading" contentVerticalAlignment="bottom"
+                    buttonType="system" lineBreakMode="middleTruncation"
+                    translatesAutoresizingMaskIntoConstraints="NO" id="euc-Ho-K1E">
+                    <rect key="frame" x="10" y="639" width="39" height="25" />
+                    <state key="normal" title="Button" />
+                    <buttonConfiguration key="configuration" style="plain" title="▶️">
+                        <fontDescription key="titleFontDescription" type="boldSystem" pointSize="10" />
+                    </buttonConfiguration>
+                    <connections>
+                        <action selector="onPress:" destination="-1" eventType="touchUpInside"
+                            id="yzn-OH-Lh0" />
+                    </connections>
+                </button>
+                <slider opaque="NO" contentMode="scaleToFill" misplaced="YES"
+                    contentHorizontalAlignment="center" contentVerticalAlignment="center"
+                    minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO"
+                    id="KvZ-4g-DxG">
+                    <rect key="frame" x="134" y="635" width="144.5" height="31" />
                     <color key="tintColor" red="0.6803334699463599" green="0.17514410020535881"
                         blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3" />
                     <color key="minimumTrackTintColor" red="1" green="0.14913141730000001"
@@ -46,35 +70,11 @@
                     </connections>
                 </slider>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="right"
-                    horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES"
-                    text="00:00" textAlignment="natural" lineBreakMode="tailTruncation"
+                    horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00"
+                    textAlignment="natural" lineBreakMode="tailTruncation"
                     baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO"
                     translatesAutoresizingMaskIntoConstraints="NO" id="z4U-C2-ln8">
-                    <rect key="frame" x="73" y="621" width="44" height="21" />
-                    <fontDescription key="fontDescription" type="system" pointSize="16" />
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite" />
-                    <nil key="highlightedColor" />
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES"
-                    contentHorizontalAlignment="leading" contentVerticalAlignment="bottom"
-                    buttonType="system" lineBreakMode="middleTruncation"
-                    translatesAutoresizingMaskIntoConstraints="NO" id="euc-Ho-K1E">
-                    <rect key="frame" x="12" y="612" width="51" height="40" />
-                    <state key="normal" title="Button" />
-                    <buttonConfiguration key="configuration" style="plain" title="▶️">
-                        <fontDescription key="titleFontDescription" type="boldSystem" pointSize="21" />
-                    </buttonConfiguration>
-                    <connections>
-                        <action selector="onPress:" destination="-1" eventType="touchUpInside"
-                            id="yzn-OH-Lh0" />
-                    </connections>
-                </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left"
-                    horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES"
-                    text="00:00" textAlignment="right" lineBreakMode="tailTruncation"
-                    baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO"
-                    translatesAutoresizingMaskIntoConstraints="NO" id="N9a-ry-WfX">
-                    <rect key="frame" x="301" y="623" width="47" height="21" />
+                    <rect key="frame" x="60" y="657.5" width="44" height="19.5" />
                     <fontDescription key="fontDescription" type="system" pointSize="16" />
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite" />
                     <nil key="highlightedColor" />
@@ -84,72 +84,25 @@
                 colorSpace="calibratedRGB" />
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="euc-Ho-K1E" secondAttribute="bottom"
-                    constant="20" id="CEs-Wj-27g" />
+                    constant="-17" id="7J4-bV-7Qc" />
+                <constraint firstAttribute="bottom" secondItem="z4U-C2-ln8" secondAttribute="bottom"
+                    constant="-10" id="7y3-D9-ta1" />
                 <constraint firstItem="N9a-ry-WfX" firstAttribute="leading" secondItem="KvZ-4g-DxG"
                     secondAttribute="trailing" constant="18" id="MOy-U3-5O5" />
-                <constraint firstAttribute="bottom" secondItem="KvZ-4g-DxG" secondAttribute="bottom"
-                    constant="20" id="NJi-fI-1Un" />
                 <constraint firstItem="KvZ-4g-DxG" firstAttribute="leading" secondItem="z4U-C2-ln8"
                     secondAttribute="trailing" constant="30" id="OBZ-Uw-WyS" />
-                <constraint firstAttribute="bottom" secondItem="z4U-C2-ln8" secondAttribute="bottom"
-                    constant="25" id="i80-tg-SFw" />
+                <constraint firstAttribute="bottom" secondItem="N9a-ry-WfX" secondAttribute="bottom"
+                    constant="-10" id="kbd-jU-lcY" />
                 <constraint firstItem="z4U-C2-ln8" firstAttribute="leading" secondItem="euc-Ho-K1E"
                     secondAttribute="trailing" constant="10" id="kkK-AE-x3Y" />
+                <constraint firstAttribute="bottom" secondItem="KvZ-4g-DxG" secondAttribute="bottom"
+                    constant="-15" id="sLk-1R-y2e" />
                 <constraint firstItem="euc-Ho-K1E" firstAttribute="leading" secondItem="i5M-Pr-FkT"
                     secondAttribute="leading" constant="12" id="v8P-p0-U5r" />
-                <constraint firstAttribute="bottom" secondItem="N9a-ry-WfX" secondAttribute="bottom"
-                    constant="23" id="wzX-Nj-Xry" />
                 <constraint firstAttribute="trailing" secondItem="N9a-ry-WfX"
                     secondAttribute="trailing" constant="27" id="xHb-7n-HGK" />
             </constraints>
-            <point key="canvasLocation" x="-56.799999999999997" y="44.527736131934034" />
+            <point key="canvasLocation" x="232.80000000000001" y="74.212893553223395" />
         </view>
-        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center"
-            contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation"
-            translatesAutoresizingMaskIntoConstraints="NO" id="B1q-g9-Vrs">
-            <rect key="frame" x="0.0" y="0.0" width="50" height="30" />
-            <constraints>
-                <constraint firstAttribute="width" constant="50" id="Dqx-2Z-BZb" />
-                <constraint firstAttribute="height" constant="30" id="XnO-Uy-eRF" />
-            </constraints>
-            <fontDescription key="fontDescription" name=".AppleSystemUIFont"
-                family=".AppleSystemUIFont" pointSize="14" />
-            <state key="normal" title="Play">
-                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite" />
-            </state>
-            <connections>
-                <action selector="play:" destination="-1" eventType="touchUpInside" id="afb-X3-Yqe" />
-            </connections>
-            <point key="canvasLocation" x="488" y="219" />
-        </button>
-        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center"
-            contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation"
-            id="Fl7-Yh-lyd">
-            <rect key="frame" x="0.0" y="0.0" width="50" height="30" />
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES" />
-            <fontDescription key="fontDescription" type="system" pointSize="14" />
-            <state key="normal" title="Pause">
-                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite" />
-            </state>
-            <connections>
-                <action selector="abc:" destination="-1" eventType="touchUpInside" id="wHI-Tz-fnc" />
-                <action selector="pause:" destination="-1" eventType="touchUpInside" id="mh6-vg-Znj" />
-            </connections>
-            <point key="canvasLocation" x="522" y="272" />
-        </button>
-        <label opaque="NO" userInteractionEnabled="NO" contentMode="left"
-            horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Estado"
-            textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines"
-            adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YYV-yF-5Pw">
-            <rect key="frame" x="0.0" y="0.0" width="47.5" height="21" />
-            <constraints>
-                <constraint firstAttribute="height" constant="21" id="OA3-F1-jJE" />
-            </constraints>
-            <fontDescription key="fontDescription" type="system" pointSize="15" />
-            <color key="textColor" red="0.30196078430000001" green="0.91372549020000005"
-                blue="0.71372549019999998" alpha="1" colorSpace="calibratedRGB" />
-            <nil key="highlightedColor" />
-            <point key="canvasLocation" x="472" y="320" />
-        </label>
     </objects>
 </document>
